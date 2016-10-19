@@ -1,0 +1,32 @@
+{
+  "name": "periodic-bot",
+  "description": "Telegram periodic bot",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cheminfo/periodic-bot.git"
+  },
+  "keywords": [
+    "periodic",
+    "table",
+    "chemistry",
+    "telegram",
+    "bot"
+  ],
+  "engines": {
+    "node": ">6.0.0"
+  },
+  "author": "Miguel Asencio <maasencioh@gmail.com> (https://github.com/maasencioh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cheminfo/periodic-bot/issues"
+  },
+  "homepage": "https://github.com/cheminfo/periodic-bot#readme",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.23.3"
+  }
+}
