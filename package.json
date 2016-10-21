@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/cheminfo/periodic-bot#readme",
   "dependencies": {
+    "chemcalc": "^3.0.6",
     "node-telegram-bot-api": "^0.23.3"
   }
 }
