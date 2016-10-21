@@ -72,6 +72,10 @@ chalk@^1.1.1:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
+chemcalc@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/chemcalc/-/chemcalc-3.0.6.tgz#9179d0efd9d3e1318b4647576247b32ea9850b5c"
+
 combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.5.tgz#938370a57b4a51dea2c77c15d5c5fdf895164009"

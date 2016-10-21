@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const data = require('./data.json');
-const info = require('./info.json');
+const resultString = require('./resultString');
 const Fuse = require('fuse.js');
 const options = {
   include: ["score"],
@@ -29,6 +29,7 @@ const options = {
 const searcher = new Fuse(data, options);
 const maxResults = 5;
 
+// Telegram configuration
 const TelegramBot = require('node-telegram-bot-api');
 const token = process.env.TELEGRAM_TOKEN;
 let bot = new TelegramBot(token, {polling: true});
@@ -77,30 +78,9 @@ bot.onText(/(^[^\/@]+)/, (msg, match) => {
   // formula calculation
   const fromId = msg.from.id;
   let searchResult = searcher.search(match[1]);
-  console.log(searchResult[0]);
   if (searchResult.length === 0) {
     bot.sendMessage(fromId, `Element ${match[1]} not found`, {parse_mode: 'HTML'});
   } else {
     bot.sendMessage(fromId, resultString(searchResult[0].item), {parse_mode: 'HTML'});
   }
 });
-
-/**
- * Search the object inside the database
- * @param {object} element - Compound to render
- * @return {string} - String to render
- */
-function resultString(element) {
-  var result = '';
-  result += `<b>${element.symbol}</b> : <em>${element.name}</em>\r\n`;
-  result += `<b>Element number: </b>${element.Z}\r\n`;
-  result += `<b>French name: </b>${element.nameFR}\r\n`;
-  result += `<b>Atomic weight: </b>${element.atomicWeight} ${info.atomicWeight.unit}\r\n`;
-  result += `<b>Melting point: </b>${element.melting} ${info.melting.unit}\r\n`;
-  result += `<b>Boiling point: </b>${element.boiling} ${info.boiling.unit}\r\n`;
-  result += `<b>Electronegativity: </b>${element.electronegativity}\r\n`;
-  result += `<b>First ionisation energy: </b>${element.firstIonisation} ${info.firstIonisation.unit}\r\n`;
-  result += `<b>Electronic configuration: </b>${element.electronConfiguration}\r\n`;
-  result += `<b>First ionisation energy: </b>${element.firstIonisation} ${info.firstIonisation.unit}\r\n`;
-  return result;
-}
