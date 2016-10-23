@@ -81,6 +81,13 @@ bot.onText(/(^[^\/@]+)/, (msg, match) => {
   if (searchResult.length === 0) {
     bot.sendMessage(fromId, `Element ${match[1]} not found`, {parse_mode: 'HTML'});
   } else {
-    bot.sendMessage(fromId, resultString(searchResult[0].item), {parse_mode: 'HTML'});
+    if (searchResult[0].score !== 0) {
+      bot.sendMessage(fromId,
+        '<em>Exact result was not found, here is the best match:</em>\r\n'
+        + resultString(searchResult[0].item), {parse_mode: 'HTML'}
+      );
+    } else {
+      bot.sendMessage(fromId, resultString(searchResult[0].item), {parse_mode: 'HTML'});
+    }
   }
 });
