@@ -29,6 +29,7 @@
   "dependencies": {
     "chemcalc": "^3.0.6",
     "fuse.js": "^2.5.0",
-    "node-telegram-bot-api": "^0.23.3"
+    "node-telegram-bot-api": "^0.23.3",
+    "sprintf": "^0.1.5"
   }
 }
