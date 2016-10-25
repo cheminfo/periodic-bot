@@ -35,12 +35,13 @@ function getIsotopes(symbol) {
   var elements = CC.getInfo().elements;
   for (var element of elements) {
     if (element.symbol === symbol) {
-      if (! element.isotopes || element.isotopes.length === 0) {
+      var isotopes=element.isotopes.filter(a => a.percentage>0);
+      if (! isotopes || isotopes.length === 0) {
         return '<b>No stable isotopes</b>';
       } else {
         return '<b>Stable isotopes: </b>\r\n'+
           '<pre>'+
-          element.isotopes.map(
+          isotopes.map(
             i => `${sprintf('%3d',Math.round(i.mass)) + symbol} - ${sprintf('%9s',i.mass.toFixed(5))} (${sprintf('%5s',i.percentage.toFixed(2))}%)`
           ).join('\r\n') +
           '</pre>';
