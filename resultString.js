@@ -19,10 +19,12 @@ function resultString(element) {
   result += `<b>Electronegativity: </b>${element.electronegativity}\r\n`;
   result += `<b>Configuration: </b>${element.electronConfiguration}\r\n`;
   result += `<b>In french: </b>${element.nameFR}\r\n`;
+  result += `<b>Density: </b>${element.density} g/cm3\r\n`;
   result += `<b>m.p.: </b>${element.melting} ${info.melting.unit}`+' ('+(element.melting-273.15).toPrecision(4)+' °C)\r\n';
   result += `<b>b.p.: </b>${element.boiling} ${info.boiling.unit}`+' ('+(element.boiling-273.15).toPrecision(4)+' °C)\r\n';
   result += `<b>Ionisation energy: </b>${element.firstIonisation} ${info.firstIonisation.unit}\r\n`;
   result += getIsotopes(element.symbol);
+  // result += `<a href='http://www.cheminfo.org/index.html?viewURL=https%3A%2F%2Fcouch.cheminfo.org%2Fcheminfo-public%2F3e54b136946b03d66fc7e7e64b63d694%2Fview.json&atom=XX'>Open periodic table</a>\r\n`;
   return result;
 }
 
