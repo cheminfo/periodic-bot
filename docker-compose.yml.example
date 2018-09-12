@@ -1,0 +1,8 @@
+version: '2'
+services:
+  periodic-bot:
+    build: src/
+    restart: always
+    environment:
+      #      TELEGRAM_TOKEN: <your token here>
+      TELEGRAM_TOKEN: 280988339:AAGPJBX60LQmrLVhxxWB-tVme0YhciVNuNk
