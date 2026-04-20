@@ -1,6 +1,11 @@
-config.json
+.claude
+.env
+.env.*
+!.env.example
+compose.yaml
+compose.*.yaml
+!compose.example.yaml
+!compose.example.*.yaml
+coverage
 node_modules
-.idea/
 *.log
-*.png
-docker-compose.yml
