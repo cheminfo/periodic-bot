@@ -1,6 +1,6 @@
 {
   "name": "periodic-bot",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Telegram bot that provides information about periodic table elements.",
   "private": true,
   "type": "module",
