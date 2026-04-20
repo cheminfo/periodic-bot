@@ -1,0 +1,56 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`renders Iron snapshot 1`] = `
+"<b>Fe</b> : <em>Iron</em>
+<b>Z: </b>26
+<b>Atomic weight: </b>55.84 Da
+<b>Electronegativity: </b>1.83
+<b>Configuration: </b>1s2 2s2 2p6 3s2 3p6 3d6 4s2
+<b>In french: </b>Fer
+<b>Density: </b>7.874 g/cm3
+<b>m.p.: </b>1811 K (1538 °C)
+<b>b.p.: </b>3134 K (2861 °C)
+<b>Ionisation energy: </b>762.5 kJ/mol
+<b>Stable isotopes: </b>
+<pre> 54Fe -  53.93961 ( 5.85%)
+ 56Fe -  55.93494 (91.75%)
+ 57Fe -  56.93539 ( 2.12%)
+ 58Fe -  57.93327 ( 0.28%)</pre>
+
+<a href='http://www.cheminfo.org/index.html?viewURL=https%3A%2F%2Fcouch.cheminfo.org%2Fcheminfo-public%2F3e54b136946b03d66fc7e7e64b63d694%2Fview.json&atom=Fe'>Open periodic table</a>"
+`;
+
+exports[`renders Oxygen snapshot 1`] = `
+"<b>O</b> : <em>Oxygen</em>
+<b>Z: </b>8
+<b>Atomic weight: </b>16.00 Da
+<b>Electronegativity: </b>3.44
+<b>Configuration: </b>1s2 2s2 2p4
+<b>In french: </b>Oxygène
+<b>Density: </b>0.001429 g/cm3
+<b>m.p.: </b>54.36 K (-218.8 °C)
+<b>b.p.: </b>90.2 K (-182.9 °C)
+<b>Ionisation energy: </b>1313.9 kJ/mol
+<b>Stable isotopes: </b>
+<pre> 16O -  15.99491 (99.76%)
+ 17O -  16.99913 ( 0.04%)
+ 18O -  17.99916 ( 0.21%)</pre>
+
+<a href='http://www.cheminfo.org/index.html?viewURL=https%3A%2F%2Fcouch.cheminfo.org%2Fcheminfo-public%2F3e54b136946b03d66fc7e7e64b63d694%2Fview.json&atom=O'>Open periodic table</a>"
+`;
+
+exports[`renders Technetium with its radioactive isotope 1`] = `
+"<b>Tc</b> : <em>Technetium</em>
+<b>Z: </b>43
+<b>Atomic weight: </b>98.00 Da
+<b>Electronegativity: </b>1.9
+<b>Configuration: </b>1s2 2s2 2p6 3s2 3p6 3d10 4s2 4p6 4d5 5s2
+<b>In french: </b>Technétium
+<b>Density: </b>11.5 g/cm3
+<b>m.p.: </b>2430 K (2157 °C)
+<b>b.p.: </b>4538 K (4265 °C)
+<b>Ionisation energy: </b>702 kJ/mol
+<b>No stable isotopes</b>
+
+<a href='http://www.cheminfo.org/index.html?viewURL=https%3A%2F%2Fcouch.cheminfo.org%2Fcheminfo-public%2F3e54b136946b03d66fc7e7e64b63d694%2Fview.json&atom=Tc'>Open periodic table</a>"
+`;
