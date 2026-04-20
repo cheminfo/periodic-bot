@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/cheminfo/periodic-bot/compare/v1.0.0...v1.0.1) (2026-04-20)
+
+
+### Bug Fixes
+
+* **compose:** replace nproc ulimit with pids_limit ([07e471b](https://github.com/cheminfo/periodic-bot/commit/07e471b78d9e35b8e96bf2ce280403f7dab82d51))
+
 ## 1.0.0 (2026-04-20)
 
 
