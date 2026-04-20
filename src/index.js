@@ -1,93 +1,92 @@
-'use strict';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
-const fs = require('fs');
-const data = require('./data.json');
-const resultString = require('./resultString');
-const Fuse = require('fuse.js');
-const options = {
-  include: ["score"],
+import Fuse from 'fuse.js';
+import TelegramBot from 'node-telegram-bot-api';
+
+import { resultString } from './resultString.js';
+
+const data = JSON.parse(
+  readFileSync(join(import.meta.dirname, 'data.json'), 'utf8'),
+);
+
+const fuseOptions = {
+  includeScore: true,
   shouldSort: true,
   threshold: 0.8,
   location: 0,
   distance: 50,
-  maxPatternLength: 20,
   keys: [
-    {
-      "name": "name",
-      "weight": 0.2
-    },
-    {
-      "name": "nameFR",
-      "weight": 0.2
-    },
-    {
-      "name": "symbol",
-      "weight": 0.6
-    }
-  ]
+    { name: 'name', weight: 0.2 },
+    { name: 'nameFR', weight: 0.2 },
+    { name: 'symbol', weight: 0.6 },
+  ],
 };
-const searcher = new Fuse(data, options);
+const searcher = new Fuse(data, fuseOptions);
 const maxResults = 5;
 
-// Telegram configuration
-const TelegramBot = require('node-telegram-bot-api');
 const token = process.env.TELEGRAM_TOKEN;
-let bot = new TelegramBot(token, {polling: true});
+if (!token) {
+  throw new Error('TELEGRAM_TOKEN environment variable is required');
+}
+const bot = new TelegramBot(token, { polling: true });
 
-// A very polite bot
-bot.getMe().then((me) => {
-    console.log('Hi my name is %s!', me.username);
-});
+const me = await bot.getMe();
+console.log(`Hi my name is ${me.username}!`);
 
-// inline rendering
-// @periodic_bot Li
-bot.on('inline_query', (msg) => {
-  let searchResult = searcher.search(msg.query);
-  if (searchResult.length === 0) {
-    bot.answerInlineQuery(msg.id, [{
-      type: 'article',
-      id: '1',
-      title: `Element ${msg.query} not found`,
-      input_message_content: {
-        message_text: `Element ${msg.query} not found`,
-        parse_mode: 'HTML'
-      }
-    }]);
-  } else {
-    let answerArray = new Array(Math.min(searchResult.length, maxResults));
-    for (var i = 0; i < answerArray.length; i++) {
-      answerArray[i] = {
+// Inline query: "@periodic_bot Li"
+bot.on('inline_query', (message) => {
+  const searchResults = searcher.search(message.query);
+  if (searchResults.length === 0) {
+    bot.answerInlineQuery(message.id, [
+      {
         type: 'article',
-        id: String(i),
-        title: `${searchResult[i].item.symbol} - ${searchResult[i].item.name}`,
+        id: '1',
+        title: `Element ${message.query} not found`,
         input_message_content: {
-          message_text: resultString(searchResult[i].item),
-          parse_mode: 'HTML'
-        }
-      }
-    }
-
-    bot.answerInlineQuery(msg.id, answerArray);
+          message_text: `Element ${message.query} not found`,
+          parse_mode: 'HTML',
+        },
+      },
+    ]);
+    return;
   }
+  const limit = Math.min(searchResults.length, maxResults);
+  const answers = new Array(limit);
+  for (let i = 0; i < limit; i++) {
+    const { item } = searchResults[i];
+    answers[i] = {
+      type: 'article',
+      id: String(i),
+      title: `${item.symbol} - ${item.name}`,
+      input_message_content: {
+        message_text: resultString(item),
+        parse_mode: 'HTML',
+      },
+    };
+  }
+  bot.answerInlineQuery(message.id, answers);
 });
 
-// Not inline rendering
-// Li
-bot.onText(/(^[^\/@]+)/, (msg, match) => {
-
-  // formula calculation
-  const fromId = msg.from.id;
-  let searchResult = searcher.search(match[1]);
-  if (searchResult.length === 0) {
-    bot.sendMessage(fromId, `Element ${match[1]} not found`, {parse_mode: 'HTML'});
+// Direct message: "Li"
+bot.onText(/^(?<query>[^/@]+)/, (message, match) => {
+  const fromId = message.from.id;
+  const { query } = match.groups;
+  const searchResults = searcher.search(query);
+  if (searchResults.length === 0) {
+    bot.sendMessage(fromId, `Element ${query} not found`, {
+      parse_mode: 'HTML',
+    });
+    return;
+  }
+  const best = searchResults[0];
+  if (best.score !== 0) {
+    bot.sendMessage(
+      fromId,
+      `<em>Best match for </em><b>${query}</b>:\r\n${resultString(best.item)}`,
+      { parse_mode: 'HTML' },
+    );
   } else {
-    if (searchResult[0].score !== 0) {
-      bot.sendMessage(fromId,
-        `<em>Best match for </em><b>${match[1]}</b>:\r\n`+
-        resultString(searchResult[0].item), {parse_mode: 'HTML'}
-      );
-    } else {
-      bot.sendMessage(fromId, resultString(searchResult[0].item), {parse_mode: 'HTML'});
-    }
+    bot.sendMessage(fromId, resultString(best.item), { parse_mode: 'HTML' });
   }
 });
