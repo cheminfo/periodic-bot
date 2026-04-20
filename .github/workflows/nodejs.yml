@@ -11,3 +11,4 @@ jobs:
     uses: zakodium/workflows/.github/workflows/nodejs.yml@nodejs-v1
     with:
       disable-test-package: true
+      upload-coverage: 'false'
