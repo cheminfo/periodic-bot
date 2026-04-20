@@ -1,0 +1,11 @@
+.git
+.github
+.claude
+node_modules
+coverage
+*.log
+.env
+.env.*
+compose.yaml
+compose.*.yaml
+src/__tests__
